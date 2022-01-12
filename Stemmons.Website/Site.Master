@@ -1,0 +1,223 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Stemmons.Website.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <%--<webopt:bundlereference runat="server" path="~/Content/css" />--%>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/content/FontAwesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+    <link href="/ReactApp/build/static/css/main.b3885504.css" rel="stylesheet">
+    <script>
+        ReactMenuConfig = {
+            menuDivID: "stemmonsMenuDiv",
+            contentDivID: "stemmonsPageContent",
+            navWidth: 270,
+            navCollapsedWidth: 80,
+            leftMenuCollapsed: true,
+            menu: {
+                top: [{
+                    url: '/',
+                    title: 'Home',
+                    iconName: 'home',
+                    active: true
+                },
+                {
+                    url: '/About',
+                    title: 'About',
+                    iconName: '',
+                    active: true
+                }],
+                left: [{
+                    url: '/',
+                    title: 'Home',
+                    iconName: 'home',
+                    active: false,
+                    childItems: [
+                        {
+                            url: '/About',
+                            title: 'About',
+                            iconName: 'home'
+                        }
+                    ]
+                },
+                {
+                    url: '/Privacy',
+                    title: 'Privacy',
+                    iconName: 'address-card',
+                    active: false
+                }]
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="stemmonsMenuDiv"></div>
+    <div id="stemmonsPageContent">
+        <form runat="server">
+            <asp:ScriptManager runat="server">
+                <Scripts>
+                    <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                    <%--Framework Scripts--%>
+                    <asp:ScriptReference Name="MsAjaxBundle" />
+                    <asp:ScriptReference Name="jquery" />
+                    <asp:ScriptReference Name="bootstrap" />
+                    <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                    <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                    <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                    <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                    <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                    <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                    <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                    <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                    <asp:ScriptReference Name="WebFormsBundle" />
+                    <%--Site Scripts--%>
+                </Scripts>
+            </asp:ScriptManager>
+
+            <nav class="navbar navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">Navbar</a>
+                </div>
+            </nav>
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" runat="server" href="~/">Application name test</a>
+                    </div>
+                    <ul>
+                        <li><a runat="server" href="~/">Home</a></li>
+                        <li><a runat="server" href="~/About">About</a></li>
+                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <% if (!Request.IsAuthenticated)
+                            { %>
+                        <li><a runat="server" href="~/SignIn.aspx">Login</a></li>
+                        <% }
+                            else
+                            { %>
+                        <li><a href="#"><%= HttpContext.Current.User.Identity.Name %></a></li>
+                        <li><a runat="server" href="~/SignOut.aspx">Sign Out</a></li>
+                        <%} %>
+                    </ul>
+                </div>
+            </div>
+            <div class="container body-content">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+                <hr />
+                <footer>
+                    <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                </footer>
+            </div>
+
+        </form>
+    </div>
+    <script>
+        !(function (e) {
+            function r(r) {
+                for (
+                    var n, p, l = r[0], a = r[1], f = r[2], c = 0, s = [];
+                    c < l.length;
+                    c++
+                )
+                    (p = l[c]),
+                        Object.prototype.hasOwnProperty.call(o, p) &&
+                        o[p] &&
+                        s.push(o[p][0]),
+                        (o[p] = 0);
+                for (n in a)
+                    Object.prototype.hasOwnProperty.call(a, n) && (e[n] = a[n]);
+                for (i && i(r); s.length;) s.shift()();
+                return u.push.apply(u, f || []), t();
+            }
+            function t() {
+                for (var e, r = 0; r < u.length; r++) {
+                    for (var t = u[r], n = !0, l = 1; l < t.length; l++) {
+                        var a = t[l];
+                        0 !== o[a] && (n = !1);
+                    }
+                    n && (u.splice(r--, 1), (e = p((p.s = t[0]))));
+                }
+                return e;
+            }
+            var n = {},
+                o = { 1: 0 },
+                u = [];
+            function p(r) {
+                if (n[r]) return n[r].exports;
+                var t = (n[r] = { i: r, l: !1, exports: {} });
+                return e[r].call(t.exports, t, t.exports, p), (t.l = !0), t.exports;
+            }
+            (p.m = e),
+                (p.c = n),
+                (p.d = function (e, r, t) {
+                    p.o(e, r) ||
+                        Object.defineProperty(e, r, { enumerable: !0, get: t });
+                }),
+                (p.r = function (e) {
+                    "undefined" != typeof Symbol &&
+                        Symbol.toStringTag &&
+                        Object.defineProperty(e, Symbol.toStringTag, { value: "Module" }),
+                        Object.defineProperty(e, "__esModule", { value: !0 });
+                }),
+                (p.t = function (e, r) {
+                    if ((1 & r && (e = p(e)), 8 & r)) return e;
+                    if (4 & r && "object" == typeof e && e && e.__esModule) return e;
+                    var t = Object.create(null);
+                    if (
+                        (p.r(t),
+                            Object.defineProperty(t, "default", { enumerable: !0, value: e }),
+                            2 & r && "string" != typeof e)
+                    )
+                        for (var n in e)
+                            p.d(
+                                t,
+                                n,
+                                function (r) {
+                                    return e[r];
+                                }.bind(null, n)
+                            );
+                    return t;
+                }),
+                (p.n = function (e) {
+                    var r =
+                        e && e.__esModule
+                            ? function () {
+                                return e.default;
+                            }
+                            : function () {
+                                return e;
+                            };
+                    return p.d(r, "a", r), r;
+                }),
+                (p.o = function (e, r) {
+                    return Object.prototype.hasOwnProperty.call(e, r);
+                }),
+                (p.p = "/");
+            var l = (this["webpackJsonpmy-app"] = this["webpackJsonpmy-app"] || []),
+                a = l.push.bind(l);
+            (l.push = r), (l = l.slice());
+            for (var f = 0; f < l.length; f++) r(l[f]);
+            var i = a;
+            t();
+        })([]);
+    </script>
+    <script src="/ReactApp/Build/static/js/main.28e74557.js"></script>
+    <%--<script src="/ReactApp/Build/static/js/main.f6dea56d.chunk.js"></script>--%>
+</body>
+</html>
